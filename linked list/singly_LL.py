@@ -41,7 +41,7 @@ class LinkedList:
             n = self.head
             while n.ref is not None:
                 n = n.ref
-            n = new_node
+            n.ref = new_node
 
     def add_after(self, data, x):
         if self.head is None:
@@ -113,6 +113,14 @@ class LinkedList:
                 n = n.ref
             n.ref = n.ref.ref
 
+    def find_middle(self):
+        slow_ptr = self.head
+        fast_ptr = self.head
+        while fast_ptr is not None and fast_ptr.ref is not None:
+            slow_ptr = slow_ptr.ref
+            fast_ptr = fast_ptr.ref.ref
+        print('Middle element is :',slow_ptr.data)
+
 
 L1 = LinkedList()
 
@@ -120,7 +128,9 @@ L1.insert_empty(11)
 L1.add_begin(10)
 L1.add_after(13, 11)
 L1.add_before(12, 13)
+L1.add_end(14)
 # L1.delete_begin()
 # L1.delete_end()
-L1.del_by_value(13)
+# L1.del_by_value(13)
+L1.find_middle()
 L1.print_LL()

@@ -6,30 +6,30 @@ class TrieNode:
 class Trie:
     def __init__(self):
         self.root = TrieNode()
-
+    
     def insert(self, word):
-        current = self.root
+        curr = self.root
         for char in word:
-            if char not in current.children:
-                current.children[char] = TrieNode()
-            current = current.children[char]
-        current.is_word = True
-
+            if char not in curr.children:
+                curr.children[char] = TrieNode()
+            curr = curr.children[char]
+        curr.is_word = True
+    
     def starts_with(self, prefix):
-        current = self.root
+        curr = self.root
         words = []
         for char in prefix:
-            if char not in current.children:
+            if char not in curr.children:
                 return []
-            current = current.children[char]
-        self._dfs(current, prefix, words)
+            curr = curr.children[char]
+        self._dfs(curr, prefix, words)
         return words
-
+    
     def _dfs(self, node, prefix, words):
         if node.is_word:
             words.append(prefix)
-        for char, child in node.children.items():
-            self._dfs(child, prefix+char, words)
+        for char, children in node.children.items():
+            self._dfs(children, prefix+char, words)
 
 
 obj = Trie()

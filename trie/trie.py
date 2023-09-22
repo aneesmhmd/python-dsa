@@ -3,10 +3,11 @@ class TrieNode:
         self.children = {}
         self.is_word = False
 
+
 class Trie:
     def __init__(self):
         self.root = TrieNode()
-    
+
     def insert(self, word):
         curr = self.root
         for char in word:
@@ -14,7 +15,15 @@ class Trie:
                 curr.children[char] = TrieNode()
             curr = curr.children[char]
         curr.is_word = True
-    
+
+    def check_word(self, word):
+        curr = self.root
+        for char in word:
+            if char not in curr.children:
+                return False
+            curr = curr.children[char]
+        return curr.is_word
+
     def starts_with(self, prefix):
         curr = self.root
         words = []
@@ -24,7 +33,7 @@ class Trie:
             curr = curr.children[char]
         self._dfs(curr, prefix, words)
         return words
-    
+
     def _dfs(self, node, prefix, words):
         if node.is_word:
             words.append(prefix)
